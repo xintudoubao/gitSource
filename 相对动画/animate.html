@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0;}
+        body,html{width:100%;height:100%;}
+
+        .page{height:100%;}
+        .page1{background:rgba(255,0,0,0.5);}
+        .page2{background:yellow;}
+        .page3{
+            background:blue;
+            position: relative;
+        }
+        .page4{background:green;}
+        .box{
+            position: absolute;
+            left: 200px;
+            top:200px;
+            width:300px;
+            height:300px;
+            background: url("images/s9.jpg") no-repeat center;
+            background-size: cover;
+            transition:1s;
+        }
+        .animated{
+            top:0;
+        }
+    </style>
+</head>
+<body>
+<div class="page page1"></div>
+<div class="page page2"></div>
+<div class="page page3">
+    <div class="box"></div>
+</div>
+<div class="page page4"></div>
+<script>
+    function getTop(clsName){
+        var obj = document.getElementsByClassName(clsName)[0];
+        return obj.getBoundingClientRect().top;
+    }
+    function getBottom(clsName){
+        var obj = document.getElementsByClassName(clsName)[0];
+        return obj.getBoundingClientRect().bottom;
+    }
+    function getDom(clsName){
+        var obj=document.getElementsByClassName(clsName)[0];
+        return obj;
+    }
+
+
+
+    window.addEventListener('scroll',function(){
+        var scrollT=document.documentElement.scrollTop||document.body.scrollTop;
+         console.log(getTop('page3'));
+        /*第三页动画的触发*/
+        if(getTop('page3')<200&&getTop('page3')>0){
+            console.info("触发了！！");
+            getDom('box').classList.add('animated');
+        }
+        if(getBottom('page3')<50){
+            getDom('box').classList.add('animated');
+        }
+        if(getTop('page3')<-500||getTop('page3')>1000){
+            console.info("移除了！！");
+            getDom('box').classList.remove('animated');
+        }
+    })
+</script>
+</body>
+</html>
